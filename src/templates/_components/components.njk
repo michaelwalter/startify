@@ -1,0 +1,7 @@
+{% macro text(modifiers, content) %}
+    {% set data = {
+        modifiers: modifiers,
+        content: content
+    } %}
+    {% include './text.njk' %}
+{% endmacro %}

@@ -1,0 +1,5 @@
+{% set modifiers = (modifier_class | default(data.modifiers)) %}
+
+<section class="app-text {{ modifiers }} || app-component">
+    {{ (data.content | default('')) | safe }}
+</section>

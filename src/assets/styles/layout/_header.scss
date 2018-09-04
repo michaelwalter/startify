@@ -1,0 +1,17 @@
+/*
+Header
+
+Podstawowy nagłówek strony
+
+Markup: ../../templates/_partials/header.njk
+
+Style guide: partials.header
+*/
+.app-header {
+  position: relative;
+  z-index: 10;
+
+  &__row {
+    padding: 20px 0;
+  }
+}

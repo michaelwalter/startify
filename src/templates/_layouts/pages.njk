@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Project {{ title }}: list of all pages</title>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        .pages {
+            display: block;
+            margin: 30px;
+            padding: 30px;
+            box-shadow: 0 0 120px -30px rgba(0, 0, 0, .5);
+        }
+        .pages__list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            columns: 2;
+        }
+        .pages__item {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100%;
+            margin-bottom: -1px;
+            border-top: 1px #eeeeee solid;
+            border-bottom: 1px #eeeeee solid;
+        }
+
+        .pages__link {
+            display: block;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #000000;
+        }
+        .pages__link:hover {
+            background: rgba(0, 0, 0, .05);
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="app">
+    <main class="app-main">
+        <div class="h-wrapper">
+            {% block content %}{{content}}{% endblock %}
+        </div>
+    </main>
+</div>
+</body>
+</html>

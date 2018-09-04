@@ -1,0 +1,28 @@
+{% import "_components/components.njk" as components %}
+{% set page = 'HOME' %}
+{% set title = 'Starter - strona główna' %}
+{% extends "_layouts/default.njk" %}
+{% block content %}
+
+    <article class="app-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-content">
+                        {{ components.text(
+                            content = '
+                                <h1>Strona główna</h1>
+                                <p>Komponent tekstowy</p>
+                            '
+                        ) }}
+
+                        <section class="example || app-component" data-component="example">
+                            <p>Example Component</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+/*
+Footer
+
+Podstawowa stopka strony
+
+Markup: ../../templates/_partials/footer.njk
+
+Style guide: partials.footer
+*/
+.app-footer {
+  position: relative;
+  font-size: calculateRem(13px);
+  background: color('SEVENTH');
+  z-index: 3;
+
+  &__row {
+    position: relative;
+    padding: 40px 0;
+  }
+}

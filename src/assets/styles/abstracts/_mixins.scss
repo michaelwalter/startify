@@ -1,0 +1,149 @@
+// Sass mixins
+//
+// Style guide: mixins
+
+// Clearfix
+//
+// **@mixin clearfix** &nbsp; mixin naprawiający wysokość kontenera elementów opływających (float)
+//
+// Style guide mixins.clearfix
+@mixin clearfix {
+  &:after {
+    content: "";
+    clear: both;
+    display: block;
+    visibility: hidden;
+  }
+}
+
+// Wrapper
+//
+// **@mixin warpper($width)** &nbsp; wykorzystany w dowlonym elemencie nadaje mu właściwości kontenera strony
+//
+// $width - zmienna określa szerokość jaką ma przyjąć kontener
+//
+// Style guide mixins.wrapper
+@mixin wrapper ($width) {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: map-get($SIZES, 'CONTAINER');
+  margin: auto;
+}
+
+// Media Query Max
+//
+// **@mixin media-query-max ($media-query)** &nbsp; mixin do tworzenia media-queries dla maksymalnej szerokości podanej jako parametr.
+//
+// $media-query - określa do jakiej maksymalnej szerokości mają zostać zastosowane reguły
+//
+// Style guide mixins.media-query-max
+@mixin media-query-max ($media-query) {
+  @media only screen and(max-width:$media-query){
+    @content;
+  }
+}
+
+// Media Query Min
+//
+// **@mixin media-query-max ($media-query)** &nbsp; mixin do tworzenia media-queries dla minimalnej szerokości podanej jako parametr.
+//
+// $media-query - określa do jakiej minimalnej szerokości mają zostać zastosowane reguły
+//
+// Style guide mixins.media-query-min
+@mixin media-query-min ($media-query) {
+  $minMediaQuery: (strip-unit($media-query) + 1) + 'px';
+  @media only screen and(min-width:$minMediaQuery) {
+    @content;
+  }
+}
+
+// Media Query Min Max
+//
+// **@mixin media-query-max ($media-query)** &nbsp; mixin do tworzenia media-queries dla minimalnej i maksymalnej szerokości podanej jako parametry.
+//
+// $media-query-min - określa do jakiej minimalnej szerokości mają zostać zastosowane reguły
+// $media-query-max - określa do jakiej maksymalnej szerokości mają zostać zastosowane reguły
+//
+// Style guide mixins.media-query-min-max
+@mixin media-query-max-min ($media-query-max, $media-query-min) {
+  $minMediaQuery: (strip-unit($media-query-min) + 1) + 'px';
+  @media only screen and (max-width: $media-query-max) and (min-width: $minMediaQuery) {
+    @content;
+  }
+}
+
+// Event wrapper
+//
+// **@mixin on-event($self: false)** &nbsp; generator eventów
+//
+// $self - Boolean, oznacza czy reguły mają zostać przypisane do stanu domyślnego wybranego komponentu
+//
+// Style guide mixins.on-event
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover, &.h-hover,
+    &:active, &.h-active,
+    &:focus, &.h-focus {
+      @content;
+    }
+  } @else {
+    &:hover, &.h-hover,
+    &:active, &.h-active,
+    &:focus, &.h-focus {
+      @content;
+    }
+  }
+}
+
+// Headings
+//
+// **@mixin headings($from: 1, $to: 6)** &nbsp; generator nagłówków
+//
+// $from - Number, wskazuje od którego nagłówka mają dotyczyć reguły
+// $to - Number, wskazuje do którego nagłówka mają dotyczyć reguły
+//
+// Style guide mixins.headings
+@mixin headings($from: 1, $to: 6){
+  @for $i from $from through $to{
+    h#{$i}, .h#{$i} {
+      @content
+    }
+  }
+}
+
+
+@mixin not-loaded () {
+  &.not-loaded {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background: color('SIXTH');
+      z-index: 10;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(color('PRIMARY'), 0.15);
+      border-left-color: rgba(color('PRIMARY'), .95);
+      border-radius: 50%;
+      transform: translateZ(0);
+      animation: load8 .75s infinite linear;
+      z-index: 100;
+    }
+  }
+}

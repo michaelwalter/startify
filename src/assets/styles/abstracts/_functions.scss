@@ -1,0 +1,98 @@
+// Sass functions
+//
+// Style guide: functions
+
+// Capitalize
+//
+// **capitalize()** format wskazanego tekstu na kapitaliki
+//
+// $string - tekst do sformatowania.
+//
+// Style guide functions.capitalize
+@function capitalize($string) {
+  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}
+
+// Color
+//
+// **color()** pobranie wartości wskazanego koloru
+//
+// $color - Nazwa po której szukana będzie wartość koloru.
+//
+// Style guide functions.color
+@function color($color) {
+  @return map-get($COLORS, capitalize($color))
+}
+
+// Font
+//
+// Pobranie wartości wskazanego fonta
+//
+// $font - Nazwa po której szukana będzie wartość fonta.
+//
+// Style guide functions.font
+@function font($font) {
+  @return map-get($FONTS, capitalize($font))
+}
+
+// Size
+//
+// Pobranie wartości wskazanego rozmiaru
+//
+// $size - Nazwa po której szukana będzie wartość rozmiaru.
+//
+// Style guide functions.size
+@function size($size) {
+  @return map-get($SIZES, capitalize($size))
+}
+
+// Space
+//
+// Pobranie wartości wskazanego odstępu
+//
+// $space - Nazwa po której szukana będzie wartość odstępu.
+//
+// Style guide functions.space
+@function space($space) {
+  @return map-get($SPACES, capitalize($space))
+}
+
+/// Native `url(..)` function wrapper
+/// @param {String} $base - base URL for the asset
+/// @param {String} $type - asset type folder (e.g. `fonts/`)
+/// @param {String} $path - asset path
+/// @return {Url}
+@function asset($base, $type, $path) {
+  @return url($base + $type + $path);
+}
+
+/// Returns URL to an image based on its path
+/// @param {String} $path - image path
+/// @param {String} $base [$base-url] - base URL
+/// @return {Url}
+/// @require $base-url
+@function image($path, $base: $base-url) {
+  @return asset($base, 'images/', $path);
+}
+
+// Calculate Rem
+//
+// Convertuje jednostki pikselowe na rem
+//
+// $size - wartość pikseli, jaka ma zostać przekonwertowana na rem.
+//
+// Style guide functions.space
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}

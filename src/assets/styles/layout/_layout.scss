@@ -1,0 +1,30 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.app-main {
+  flex: 1 0 auto;
+  padding: 0;
+  z-index: 2;
+}
+
+.app-section {
+  position: relative;
+  padding: 40px 0;
+  background: #ffffff;
+}
+
+.app-component {
+  position: relative;
+  width: 100%;
+}
+
+.col-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  align-items: baseline;
+}
