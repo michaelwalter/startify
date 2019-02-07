@@ -33,6 +33,7 @@
     },
     "dependencies": {
         "js-cookie": "^2.2.0",
+        "natives": "^1.1.6",
         "normalize.css": "^8.0.0",
         "npm": "^6.4.1",
         "toastr": "^2.1.4"

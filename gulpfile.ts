@@ -151,6 +151,11 @@ export class Gulpfile {
             .pipe(gulp.dest(IMG.BUILD))
     }
 
+    @SequenceTask('images:watch')
+    imagesWatch() {
+        return ['images', 'reload'];
+    }
+
     /**
      * Move vendors to dist folder
      *
@@ -162,6 +167,11 @@ export class Gulpfile {
             .pipe(gulp.dest(VENDORS.BUILD));
     }
 
+    @SequenceTask('vendors:watch')
+    vendorsWatch() {
+        return ['vendors', 'reload'];
+    }
+
     /**
      * Move all fonts to dist folder
      *
@@ -171,6 +181,11 @@ export class Gulpfile {
     fonts() {
         return gulp.src(FONTS.SRC)
             .pipe(gulp.dest(FONTS.BUILD));
+    }
+
+    @SequenceTask('fonts:watch')
+    fontsWatch() {
+        return ['fonts', 'reload'];
     }
 
     /**
