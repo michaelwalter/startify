@@ -15,6 +15,6 @@ export class Example extends Component {
     }
 
     private initialize () {
-        console.log('Initialize Example');
+        console.log('Initialize Example ;)');
     }
 }
