@@ -1,18 +1,13 @@
-import * as toastr from 'toastr';
-import * as Cookies from 'js-cookie';
+import * as Toastr from "toastr";
+import * as Cookies from "js-cookie";
 
-const ajax  = require('vendors/ajax');
-
-export interface Offset {
+interface Offset {
     top: number,
     left: number
 }
 
-export class Utils {
-
-    constructor() { }
-
-    static offset (element: HTMLElement): Offset {
+export namespace Utils {
+    export function offset (element: HTMLElement): Offset {
         let rect = {
             top: 0,
             left: 0
@@ -27,7 +22,7 @@ export class Utils {
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
     }
 
-    static fadeOut (element: any): void {
+    export function fadeOut (element: any): void {
         element.style.opacity = 1;
 
         (function fade() {
@@ -37,9 +32,9 @@ export class Utils {
                 requestAnimationFrame(fade);
             }
         })();
-    };
+    }
 
-    static fadeIn (element, display?: string): void {
+    export function fadeIn (element, display?: string): void {
         element.style.opacity = 0;
         element.style.display = display || "block";
 
@@ -50,17 +45,9 @@ export class Utils {
                 requestAnimationFrame(fade);
             }
         })();
-    };
-
-    static ajax (config: object): void {
-        ajax(config);
     }
 
-    static makeCurrencyNumber (currency: string): string {
-        return currency.replace(/ /g, '');
-    }
-
-    static isAnyPartOfElementInViewport (element: HTMLElement): Boolean {
+    export function isAnyPartOfElementInViewport (element: HTMLElement): Boolean {
         if (element) {
             const rect = element.getBoundingClientRect();
             const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
@@ -75,10 +62,10 @@ export class Utils {
         }
     }
 
-    static addEvent(element: any, type: string, handler: Function): void {
+    export function addEvent(element: any, type: string, handler: Function): void {
         if (element) {
             if (element.attachEvent){
-                element.attachEvent('on'+type, handler);
+                element.attachEvent("on"+type, handler);
             }
             else {
                 element.addEventListener(type, handler, false);
@@ -86,10 +73,10 @@ export class Utils {
         }
     }
 
-    static removeEvent(element: any, type: string, handler: Function): void {
+    export function removeEvent(element: any, type: string, handler: Function): void {
         if (element) {
             if (element.detachEvent) {
-                element.detachEvent('on'+type, handler);
+                element.detachEvent("on"+type, handler);
             }
             else {
                 element.removeEventListener(type, handler);
@@ -97,7 +84,7 @@ export class Utils {
         }
     }
 
-    static addLiveEvent (selector: string, event: string, callback: Function, context?: HTMLElement): void {
+    export function addLiveEvent (selector: string, event: string, callback: Function, context?: HTMLElement): void {
         Utils.addEvent(context || document, event, function(e) {
             let qs = (context || document).querySelectorAll(selector);
             if (qs) {
@@ -112,87 +99,70 @@ export class Utils {
         });
     }
 
-    static message(type: string, message: string): void {
+    export function message(type: string, message: string): void {
         switch (type.toLowerCase()) {
-            case 'error': {
-                toastr.error(message);
+            case "error": {
+                Toastr.error(message);
                 break;
             }
-            case 'warning': {
-                toastr.warning(message);
+            case "warning": {
+                Toastr.warning(message);
                 break;
             }
-            case 'success': {
-                toastr.success(message);
+            case "success": {
+                Toastr.success(message);
                 break;
             }
-            case 'info': {
-                toastr.info(message);
+            case "info": {
+                Toastr.info(message);
                 break;
             }
             default: {
-                toastr.info(message);
+                Toastr.info(message);
                 break;
             }
         }
     }
 
-    static readCookie (name) {
+    export function readCookie (name) {
         var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
+        var ca = document.cookie.split(";");
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            while (c.charAt(0) == " ") c = c.substring(1, c.length);
             if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
         }
         return null;
     }
 
-    static getCookie (name) {
+    export function getCookie (name) {
         return Cookies.get(name);
     }
 
-    static setCookie (name, value, config) {
+    export function setCookie (name, value, config) {
         Cookies.set(name, value, config);
     }
 
-    static deleteCookie(name) {
+    export function deleteCookie(name) {
         Cookies.remove(name);
     }
 
-    static copyToClipboard (element) {
+    export function copyToClipboard (element) {
         const selection = window.getSelection();
         const range = document.createRange();
         range.selectNodeContents(element);
         selection.removeAllRanges();
         selection.addRange(range);
-        Utils.message('success', 'Skopiowano');
+        Utils.message("success", "Skopiowano");
         try {
-            document.execCommand('copy');
+            document.execCommand("copy");
             selection.removeAllRanges();
         } catch(e) {
-            Utils.message('warning', 'Nie można było skopiować wskazanej wartości');
+            Utils.message("warning", "Nie można było skopiować wskazanej wartości");
         }
     }
 
-    static convertNumberToCurrency (convertedNumber: number, decimal: Boolean = false): any {
-        const n = 2;
-        const sectionsDelimeter = ' ';
-        const decimalDelimeter = ',';
-        const re = '\\d(?=(\\d{' + (3) + '})+' + (n > 0 ? '\\D' : '$') + ')';
-        let result = '';
-        let num = convertedNumber.toFixed(Math.max(0, ~~n)).toString();
-
-        if (decimal) {
-            result = (decimalDelimeter ? num.replace('.', decimalDelimeter) : num).replace(new RegExp(re, 'g'), '$&' + (sectionsDelimeter || ','));
-        } else {
-            result = (decimalDelimeter ? num.replace('.', decimalDelimeter) : num).replace(new RegExp(re, 'g'), '$&' + (sectionsDelimeter || ','));
-            result = result.substring(0, result.indexOf(decimalDelimeter));
-        }
-        return result;
-    };
-
-    static getWindowScrollOffset (): any {
+    export function getWindowScrollOffset (): any {
         const doc = document.documentElement;
         const left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
         const top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
@@ -200,16 +170,5 @@ export class Utils {
             left: left,
             top: top
         }
-    }
-
-    static importStaticIdsFromData (idsFromData): Array<string> {
-        const idsArray = [];
-        if (idsFromData) {
-            const parsedIds = JSON.parse(idsFromData);
-            for (let i = 0; i < parsedIds.length; i++) {
-                idsArray.push(parsedIds[i].toString());
-            }
-        }
-        return idsArray;
     }
 }

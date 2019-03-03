@@ -1,6 +1,5 @@
-import {Utils} from "./utils";
-import {Component} from './component';
-
+import "vendors";
+import {Component} from "./component";
 import {Example} from "./components/example/example";
 
 const availableComponents = {
@@ -12,7 +11,7 @@ export class App {
     private env: string;
 
     constructor (env?: string) {
-        this.env = env || 'development';
+        this.env = env || "development";
         this.components = [];
     }
 
@@ -23,15 +22,11 @@ export class App {
         this.mountComponents();
     }
 
-    /**
-     * Get all components from loaded DOM trought selector [data-component]
-     *
-     */
     private getComponents (): void {
-        const components = document.querySelectorAll('[data-component]');
+        const components = document.querySelectorAll("[data-component]");
         for (let i = 0; i < components.length; i++) {
             let component = components[i];
-            const componentName = component.getAttribute('data-component');
+            const componentName = component.getAttribute("data-component");
             if (availableComponents[componentName]) {
                 this.components.push(new availableComponents[componentName](component))
             }
@@ -42,11 +37,6 @@ export class App {
 
     }
 
-    /**
-     * We mount components here but we have acces
-     * to instances of all components now (getVisibleComponents)
-     *
-     */
     private mountComponents (): void {
         this.components.forEach((component: Component) => {
             if (component instanceof Component) {

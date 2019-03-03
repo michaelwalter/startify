@@ -33,10 +33,11 @@
         "natives": "^1.1.6",
         "normalize.css": "^8.0.0",
         "npm": "^6.4.1",
-        "toastr": "^2.1.4"
+        "toastr": "^2.1.4",
+        "whatwg-fetch": "^3.0.0"
     },
     "scripts": {
-        "start": "webpack-dev-server --open --watch --mode development",
+        "start": "webpack-dev-server --open --watch --hot --mode development",
         "build": "webpack --mode production",
         "watch": "webpack --watch --mode development"
     }

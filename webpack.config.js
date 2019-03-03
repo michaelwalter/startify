@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -23,10 +24,11 @@ module.exports = {
     devtool: "source-map",
     output: {
         path: __dirname + '/dist/',
-        filename: 'scripts.[hash].min.js'
+        filename: 'scripts.min.js'
     },
     optimization: {
         minimizer: [
+            new UglifyJsPlugin(),
             new OptimizeCSSAssetsPlugin({
                 cssProcessorOptions: {
                     map: {
@@ -109,8 +111,8 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist/*']),
         new MiniCssExtractPlugin({
-            filename: 'styles.[hash].min.css',
-            chunkFilename: '[id].[hash].min.css',
+            filename: 'styles.min.css',
+            chunkFilename: '[id].min.css',
         }),
         new FileManagerPlugin({
             onEnd: {
@@ -121,10 +123,10 @@ module.exports = {
                     './dist/assets/fonts/'
                 ],
                 move: [
-                    { source: './dist/scripts.[hash].min.js', destination: './dist/assets/scripts/scripts.[hash].min.js' },
-                    { source: './dist/scripts.[hash].min.js.map', destination: './dist/assets/scripts/scripts.[hash].min.js.map' },
-                    { source: './dist/styles.[hash].min.css', destination: './dist/assets/styles/styles.[hash].min.css' },
-                    { source: './dist/styles.[hash].min.css.map', destination: './dist/assets/styles/styles.[hash].min.css.map' },
+                    { source: './dist/scripts.min.js', destination: './dist/assets/scripts/scripts.min.js' },
+                    { source: './dist/scripts.min.js.map', destination: './dist/assets/scripts/scripts.min.js.map' },
+                    { source: './dist/styles.min.css', destination: './dist/assets/styles/styles.min.css' },
+                    { source: './dist/styles.min.css.map', destination: './dist/assets/styles/styles.min.css.map' },
                     { source: './src/assets/images', destination: './dist/assets/images' },
                     { source: './src/assets/fonts', destination: './dist/assets/fonts' }
                 ]

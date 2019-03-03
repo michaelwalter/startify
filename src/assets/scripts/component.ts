@@ -1,13 +1,13 @@
 import {EventEmitter} from "events";
-import {APP} from './scripts';
+import {APP} from "./scripts";
 
-export interface Config {
-    id: string
-    type: string,
-    element?: HTMLElement
+interface Config {
+    readonly id: string
+    readonly type: string,
+    readonly element?: HTMLElement
 }
 
-export interface RefsArray extends Array<any> {
+interface RefsArray extends Array<any> {
     first: Function
 }
 
@@ -16,26 +16,16 @@ interface ComponentsArray extends Array<Component> {
 }
 
 export abstract class Component {
-    public config: Config;
+    protected componentConfig: Config;
 
     private refs: RefsArray;
 
     static emitter: EventEmitter = new EventEmitter();
-    /**
-     * Generate Component ID (get from dataset or generate random)
-     *
-     * @returns {string}
-     */
+
     static generateId (): string {
         return Math.floor((Math.random() * 100000)).toString();
     }
 
-    /**
-     * Get Component by own ID
-     *
-     * @param {string | number} id
-     * @returns {{}}
-     */
     static getById(id: string | number): Component {
         let component = <Component>{};
         if (APP.components) {
@@ -45,7 +35,7 @@ export abstract class Component {
                 }
             });
         } else {
-            console.log('Component with ID: ' + id + ' doesn\'t exist');
+            console.log("Component with ID: " + id + " doesn't exist");
         }
         return component;
     }
@@ -59,7 +49,7 @@ export abstract class Component {
                 }
             });
         } else {
-            console.log('Component with type ' + type + ' doesn\'t exist');
+            console.log("Component with type " + type + " doesn't exist");
         }
         components.first = (): any => {
             return components.length ? components[0] : null;
@@ -72,7 +62,7 @@ export abstract class Component {
         this.prepareRefs(element);
 
         if (element) {
-            element['component-id'] = this.config.id;
+            element["component-id"] = this.componentConfig.id;
         }
     }
 
@@ -105,7 +95,7 @@ export abstract class Component {
     }
 
     /**
-     * Create Component config by DOM element if exist
+     * Create Component Config by DOM element if exist
      *
      * @param {HTMLElement} element
      * @param type
@@ -114,9 +104,9 @@ export abstract class Component {
     private prepareConfigByElement (element?: HTMLElement, type?: string): void {
         const generatedId = Component.generateId();
         const generatedType = type || null;
-        this.config = {
-            id: element ? element.getAttribute('data-id') || generatedId : generatedId,
-            type: element ? element.getAttribute('data-component') || generatedType : generatedType,
+        this.componentConfig = <Config> {
+            id: element ? element.getAttribute("data-id") || generatedId : generatedId,
+            type: element ? element.getAttribute("data-component") || generatedType : generatedType,
             element: element || null
         };
     }
@@ -124,12 +114,12 @@ export abstract class Component {
     private prepareRefs (element?: HTMLElement): void {
         const refs = <RefsArray>[];
         if (element) {
-            const refElements = <NodeList>element.querySelectorAll('[data-ref]');
+            const refElements = <NodeList>element.querySelectorAll("[data-ref]");
             for (let i = 0; i < refElements.length; i++) {
                 const refElement = <HTMLElement>refElements[i];
-                const refName = refElement.getAttribute('data-ref');
-                if (typeof refs[refName] === 'undefined') {
-                    const refNameSelector = '[data-ref="' + refName + '"]';
+                const refName = refElement.getAttribute("data-ref");
+                if (typeof refs[refName] === "undefined") {
+                    const refNameSelector = "[data-ref='" + refName + "']";
                     refs[refName] = element.querySelectorAll(refNameSelector);
                 }
             }
@@ -138,11 +128,11 @@ export abstract class Component {
     }
 
     /**
-     * Get Component config object
+     * Get Component Config object
      *
      * @returns {object}
      */
-    get componentConfig () {
-        return this.config;
+    get config () {
+        return this.componentConfig;
     }
 }
