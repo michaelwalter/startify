@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const PostcssFontBase64 = require('postcss-font-base64');
+const Autoprefixer = require('autoprefixer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 const devMode = process.env.NODE_ENV !== 'production';
@@ -24,7 +26,7 @@ module.exports = {
     devtool: "source-map",
     output: {
         path: __dirname + '/dist/',
-        filename: 'scripts.min.js'
+        filename: 'assets/scripts/scripts.min.js'
     },
     optimization: {
         minimizer: [
@@ -72,6 +74,10 @@ module.exports = {
                 ]
             },
             {
+                test: /\.(jpe?g|png|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+                use: 'base64-inline-loader?limit=1000&name=[name].[ext]'
+            },
+            {
                 test: /\.(scss|css)$/,
                 use: [
                     {
@@ -90,9 +96,11 @@ module.exports = {
                         loader: "postcss-loader",
                         options: {
                             sourceMap: 'inline',
-                            plugins: () => [require('autoprefixer')({
-                                'browsers': ['> 1%', 'last 2 versions']
-                            })]
+                            plugins: () => [
+                                Autoprefixer({
+                                    'browsers': ['> 1%', 'last 2 versions']
+                                })
+                            ]
                         }
                     },
                     {
@@ -111,22 +119,22 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist/*']),
         new MiniCssExtractPlugin({
-            filename: 'styles.min.css',
+            filename: 'assets/styles/styles.min.css',
             chunkFilename: '[id].min.css',
         }),
         new FileManagerPlugin({
             onEnd: {
                 mkdir: [
-                    './dist/assets/scripts/',
-                    './dist/assets/styles/',
+                    // './dist/assets/scripts/',
+                    // './dist/assets/styles/',
                     './dist/assets/images/',
                     './dist/assets/fonts/'
                 ],
                 move: [
-                    { source: './dist/scripts.min.js', destination: './dist/assets/scripts/scripts.min.js' },
-                    { source: './dist/scripts.min.js.map', destination: './dist/assets/scripts/scripts.min.js.map' },
-                    { source: './dist/styles.min.css', destination: './dist/assets/styles/styles.min.css' },
-                    { source: './dist/styles.min.css.map', destination: './dist/assets/styles/styles.min.css.map' },
+                    // { source: './dist/scripts.min.js', destination: './dist/assets/scripts/scripts.min.js' },
+                    // { source: './dist/scripts.min.js.map', destination: './dist/assets/scripts/scripts.min.js.map' },
+                    // { source: './dist/styles.min.css', destination: './dist/assets/styles/styles.min.css' },
+                    // { source: './dist/styles.min.css.map', destination: './dist/assets/styles/styles.min.css.map' },
                     { source: './src/assets/images', destination: './dist/assets/images' },
                     { source: './src/assets/fonts', destination: './dist/assets/fonts' }
                 ]
