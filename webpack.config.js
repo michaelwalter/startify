@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const PostcssFontBase64 = require('postcss-font-base64');
 const Autoprefixer = require('autoprefixer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
@@ -125,16 +124,10 @@ module.exports = {
         new FileManagerPlugin({
             onEnd: {
                 mkdir: [
-                    // './dist/assets/scripts/',
-                    // './dist/assets/styles/',
                     './dist/assets/images/',
                     './dist/assets/fonts/'
                 ],
                 move: [
-                    // { source: './dist/scripts.min.js', destination: './dist/assets/scripts/scripts.min.js' },
-                    // { source: './dist/scripts.min.js.map', destination: './dist/assets/scripts/scripts.min.js.map' },
-                    // { source: './dist/styles.min.css', destination: './dist/assets/styles/styles.min.css' },
-                    // { source: './dist/styles.min.css.map', destination: './dist/assets/styles/styles.min.css.map' },
                     { source: './src/assets/images', destination: './dist/assets/images' },
                     { source: './src/assets/fonts', destination: './dist/assets/fonts' }
                 ]
