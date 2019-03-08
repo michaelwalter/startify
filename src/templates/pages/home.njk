@@ -4,29 +4,15 @@
 {% extends "_layouts/default.njk" %}
 {% block content %}
 
-    <article class="app-section">
+    <article class="app-section" style="background-color: #20284b;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-content">
-                        {{ components.text(
-                            content = '
-                                <h1>Strona główna</h1>
-                                <p>Komponent tekstowy</p>
-                            '
-                        ) }}
 
-                        <section class="example || app-component" data-component="example">
-                            <p>Example Component</p>
-                        </section>
-
-                        <section class="example || app-component" data-component="example" data-id="1">
-                            <p>Example Component</p>
-                        </section>
                     </div>
                 </div>
             </div>
         </div>
     </article>
-
 {% endblock %}

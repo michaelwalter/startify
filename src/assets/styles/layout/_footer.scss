@@ -11,7 +11,7 @@ Style guide: partials.footer
   position: relative;
   font-size: calculateRem(13px);
   background: color('SEVENTH');
-  z-index: 3;
+  z-index: 1;
 
   &__row {
     position: relative;

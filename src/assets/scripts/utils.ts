@@ -1,6 +1,5 @@
 import * as Toastr from "toastr";
 import * as Cookies from "js-cookie";
-
 interface Offset {
     top: number,
     left: number

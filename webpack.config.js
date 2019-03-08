@@ -7,6 +7,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 const devMode = process.env.NODE_ENV !== 'production';
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 const nunjucksPath = './src/templates/pages/';
 
@@ -24,7 +25,7 @@ module.exports = {
     devtool: "source-map",
     output: {
         path: __dirname + '/dist/',
-        filename: 'scripts.min.js'
+        filename: 'assets/scripts/scripts.min.js'
     },
     optimization: {
         minimizer: [
@@ -111,22 +112,19 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist/*']),
         new MiniCssExtractPlugin({
-            filename: 'styles.min.css',
+            filename: 'assets/styles/styles.min.css',
             chunkFilename: '[id].min.css',
+        }),
+        new LiveReloadPlugin({
+            appendScriptTag: true
         }),
         new FileManagerPlugin({
             onEnd: {
                 mkdir: [
-                    './dist/assets/scripts/',
-                    './dist/assets/styles/',
                     './dist/assets/images/',
                     './dist/assets/fonts/'
                 ],
                 move: [
-                    { source: './dist/scripts.min.js', destination: './dist/assets/scripts/scripts.min.js' },
-                    { source: './dist/scripts.min.js.map', destination: './dist/assets/scripts/scripts.min.js.map' },
-                    { source: './dist/styles.min.css', destination: './dist/assets/styles/styles.min.css' },
-                    { source: './dist/styles.min.css.map', destination: './dist/assets/styles/styles.min.css.map' },
                     { source: './src/assets/images', destination: './dist/assets/images' },
                     { source: './src/assets/fonts', destination: './dist/assets/fonts' }
                 ]

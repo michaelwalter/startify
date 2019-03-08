@@ -26,7 +26,8 @@
         "uglifyjs-webpack-plugin": "^2.1.2",
         "webpack": "^4.29.5",
         "webpack-cli": "^3.1.0",
-        "webpack-dev-server": "^3.2.1"
+        "webpack-dev-server": "^3.2.1",
+        "webpack-livereload-plugin": "^2.2.0"
     },
     "dependencies": {
         "js-cookie": "^2.2.0",
@@ -37,7 +38,7 @@
         "whatwg-fetch": "^3.0.0"
     },
     "scripts": {
-        "start": "webpack-dev-server --open --watch --hot --mode development",
+        "start": "webpack-dev-server --open --watch --mode development",
         "build": "webpack --mode production",
         "watch": "webpack --watch --mode development"
     }

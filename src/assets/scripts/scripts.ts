@@ -10,6 +10,7 @@ export class App {
     public components: Array<any>;
     private env: string;
 
+
     constructor (env?: string) {
         this.env = env || "development";
         this.components = [];
@@ -61,6 +62,6 @@ export class App {
 
 export const APP = new App();
 
-window.onload = function () {
+window.addEventListener('load', function () {
     APP.initialize();
-};
+}, false);

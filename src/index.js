@@ -1,2 +1,2 @@
-import script from "./assets/scripts/scripts.ts";
-import style from "./assets/styles/main.scss";
+import "./assets/scripts/scripts.ts";
+import "./assets/styles/main.scss";
