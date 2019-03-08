@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const Autoprefixer = require('autoprefixer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 const devMode = process.env.NODE_ENV !== 'production';
@@ -73,6 +74,10 @@ module.exports = {
                 ]
             },
             {
+                test: /\.(jpe?g|png|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+                use: 'base64-inline-loader?limit=1000&name=[name].[ext]'
+            },
+            {
                 test: /\.(scss|css)$/,
                 use: [
                     {
@@ -91,9 +96,11 @@ module.exports = {
                         loader: "postcss-loader",
                         options: {
                             sourceMap: 'inline',
-                            plugins: () => [require('autoprefixer')({
-                                'browsers': ['> 1%', 'last 2 versions']
-                            })]
+                            plugins: () => [
+                                Autoprefixer({
+                                    'browsers': ['> 1%', 'last 2 versions']
+                                })
+                            ]
                         }
                     },
                     {
