@@ -1,4 +1,4 @@
-import "vendors";
+import "./vendors/vendors";
 import {Component} from "./component";
 import {Example} from "./components/example/example";
 
@@ -35,7 +35,7 @@ export class App {
     }
 
     private getAbstractComponents (): void {
-
+        // this.components.push(new Modals());
     }
 
     private mountComponents (): void {
