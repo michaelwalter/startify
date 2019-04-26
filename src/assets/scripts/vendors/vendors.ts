@@ -1,1 +1,1 @@
-// import '@bs/bootstrap/dist/assets/scripts/scripts.min.js';
+import '@bs/bootstrap/dist/assets/scripts/scripts.min.js';

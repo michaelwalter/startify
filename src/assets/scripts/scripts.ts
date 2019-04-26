@@ -1,9 +1,11 @@
 import "./vendors/vendors";
 import {Component} from "./component";
 import {Example} from "./components/example/example";
+import {Example2} from "./components/example2/example2";
 
 const availableComponents = {
-    example: Example
+    example: Example,
+    example2: Example2
 };
 
 export class App {
@@ -35,7 +37,7 @@ export class App {
     }
 
     private getAbstractComponents (): void {
-        // this.components.push(new Modals());
+
     }
 
     private mountComponents (): void {
